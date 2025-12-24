@@ -351,35 +351,69 @@
       opacity:.35;
     }
 
-    .wax{
-      position:absolute;
-      left:50%;
-      bottom:58px;
-      transform:translateX(-50%);
-      z-index:9;
-      width:56px;
-      height:56px;
-      border-radius:999px;
-      background:
-        radial-gradient(circle at 30% 28%, rgba(255,255,255,.22), transparent 40%),
-        radial-gradient(circle at 70% 78%, rgba(0,0,0,.18), transparent 46%),
-        linear-gradient(180deg, var(--waxTop), var(--waxBot));
-      border:1px solid rgba(0,0,0,.25);
-      box-shadow:0 12px 26px rgba(0,0,0,.22);
-      pointer-events:none;
-    }
-    .wax::after{
-      content:"";
-      width:38px;
-      height:38px;
-      border-radius:999px;
-      border:1px dashed rgba(255,255,255,.18);
-      opacity:.92;
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-    }
+.wax{
+  position:absolute;
+  left:50%;
+  bottom:58px;
+  z-index:9;
+
+  width:62px;
+  height:58px;
+
+  --waxFill:
+    radial-gradient(circle at 28% 24%, rgba(255,255,255,.20), transparent 42%),
+    radial-gradient(circle at 72% 80%, rgba(0,0,0,.22), transparent 52%),
+    linear-gradient(180deg, var(--waxTop), var(--waxBot));
+
+  background: var(--waxFill);
+  transform:translateX(-50%) rotate(-2deg);
+  pointer-events:none;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,.22));
+
+  /* Corazón bonito: máscara SVG */
+  -webkit-mask-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 58'>\
+<path d='M32 56S2 37 2 18C2 8.6 9.4 2 18.6 2c5.6 0 10.6 2.9 13.4 7.4C34.8 4.9 39.8 2 45.4 2 54.6 2 62 8.6 62 18 62 37 32 56 32 56z'/>\
+</svg>");
+  -webkit-mask-repeat:no-repeat;
+  -webkit-mask-size:100% 100%;
+  -webkit-mask-position:center;
+
+  mask-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 58'>\
+<path d='M32 56S2 37 2 18C2 8.6 9.4 2 18.6 2c5.6 0 10.6 2.9 13.4 7.4C34.8 4.9 39.8 2 45.4 2 54.6 2 62 8.6 62 18 62 37 32 56 32 56z'/>\
+</svg>");
+  mask-repeat:no-repeat;
+  mask-size:100% 100%;
+  mask-position:center;
+}
+
+/* Brillo de cera */
+.wax::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,.22), transparent 42%),
+    radial-gradient(circle at 58% 52%, rgba(255,255,255,.08), transparent 55%);
+  opacity:.85;
+
+  -webkit-mask: inherit;
+  mask: inherit;
+}
+
+/* Borde interno tipo sello */
+.wax::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  border-radius:14px;
+  border:1px dashed rgba(255,255,255,.18);
+  opacity:.9;
+
+  -webkit-mask: inherit;
+  mask: inherit;
+}
 
     /* Progreso apertura */
     .open-progress{
@@ -437,11 +471,12 @@
       100%{ opacity:.94; transform:translateY(0) scale(1.01); }
     }
 
-    @keyframes waxBreak{
-      0%{ opacity:1; transform:translateX(-50%) scale(1) rotate(0deg); }
-      45%{ opacity:.85; transform:translateX(-50%) scale(.95) rotate(-7deg); }
-      100%{ opacity:0; transform:translateX(-50%) scale(.82) rotate(-14deg); }
-    }
+@keyframes waxBreak{
+  0%{ opacity:1; transform:translateX(-50%) rotate(-2deg) scale(1); }
+  45%{ opacity:.82; transform:translateX(-50%) rotate(-10deg) scale(.94); }
+  100%{ opacity:0; transform:translateX(-50%) rotate(-18deg) scale(.82); }
+}
+
 
     @keyframes flapOpen{
       0%{ transform:rotateX(0deg); }
@@ -877,6 +912,3 @@ Con todo mi corazón, siempre tuyo.
   </script>
 </body>
 </html>
-
-
-
